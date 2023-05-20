@@ -1,0 +1,51 @@
+{% extends 'index.html' %}
+{% block content %}
+<div class="pd-20 card-box mb-30">
+	<div class="clearfix">
+		<div class="pull-left">
+			<h4 class="text-blue h4">Upload Book</h4>
+			<p class="mb-30">You can upload one book at a time</p>
+		</div>
+	</div>
+	<form action="" method="post" enctype='multipart/form-data'>
+		{% csrf_token %}
+		<div class="form-group row">
+			<label class="col-sm-12 col-md-2 col-form-label">Title</label>
+			<div class="col-sm-12 col-md-10">
+				<input class="form-control" type="text" placeholder="Harry Potter" name="title">
+			</div>
+		</div>
+		<div class="form-group row">
+			<label class="col-sm-12 col-md-2 col-form-label">Cost(INR)</label>
+			<div class="col-sm-12 col-md-10">
+				<input class="form-control" type="number" placeholder="5000" name="cost">
+			</div>
+		</div>
+		<div class="form-group row">
+			<label class="col-sm-12 col-md-2 col-form-label">Year of publishing</label>
+			<div class="col-sm-12 col-md-10">
+				<input class="form-control" type="text" placeholder="EX:1998" name="year_of_publishing">
+			</div>
+		</div>
+		<div class="form-group">
+			<label>Description</label>
+			<textarea class="form-control" name='description'></textarea>
+		</div>
+		<div class="form-group">
+			<label>Upload Cover Image</label>
+			<input type="file" class="form-control-file form-control height-auto" name="cover_image">
+		</div>
+		<div class="form-group">
+			<label>Upload Book</label>
+			<input type="file" class="form-control-file form-control height-auto" name="book_path">
+		</div>
+		<div class="custom-control custom-checkbox mb-5">
+			<input type="checkbox" class="custom-control-input" id="customCheck1-1" name="visibility">
+			<label class="custom-control-label" for="customCheck1-1">Visibility</label>
+		</div>
+		<div>
+			<input class="btn btn-info btn-lg" type="submit" value="Upload book">
+		</div>
+	</form>
+</div>
+{% endblock content %}

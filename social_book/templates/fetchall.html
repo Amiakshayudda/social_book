@@ -1,0 +1,36 @@
+{% extends 'index.html' %}
+{% block content %}
+
+<div class="pd-ltr-20 card-box mb-30">
+	<div class="clearfix mb-20">
+		<div class="pull-left">
+			<h4 class="text-blue h4">All Users</h4>
+			<p>All users who have opted public visibility</p>
+		</div>
+	</div>
+	<div class="table-responsive">
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<td>Full Name</td>
+					<td>Email</td>
+					<td>Age</td>
+					<td>City</td>
+					<td>State</td>
+				</tr>
+			</thead>
+			<tbody>
+			{% for user in allusers %}
+				<tr>
+					<td>{{ user.full_name }}</td>
+					<td>{{ user.email }}</td>
+					<td>{{ user.age }}</td>
+					<td>{{ user.city }}</td>
+					<td>{{ user.state }}</td>
+				</tr>
+			{% endfor %}
+			</tbody>
+		</table>
+	</div>
+</div>
+{% endblock content %}
