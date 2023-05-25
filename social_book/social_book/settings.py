@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 import os
 from pathlib import Path
+# import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -24,9 +25,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-6b$za-@6gpn4q@35v%3nl7ibvw%qs(d@9i!gvg0j_r-pld+=hs'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['65.1.84.237']
 
 
 # Application definition
@@ -38,10 +39,18 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     'users',
     'exceltask',
     'rest_framework',
     'djoser',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
+    'excelpd',
+    'pdtasks',
+    'storages',
 ]
 
 REST_FRAMEWORK = {
@@ -93,13 +102,24 @@ WSGI_APPLICATION = 'social_book.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'social_book',
+#         'USER': 'postgres',
+#         'PASSWORD': 'Akshay@95520',
+#         'HOST': 'localhost'
+#     }
+# }
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'social_book',
         'USER': 'postgres',
-        'PASSWORD': 'Akshay@95520',
-        'HOST': 'localhost'
+        'PASSWORD': 'postgres',
+        'HOST': 'database-1.cphptkz11nx9.ap-south-1.rds.amazonaws.com',
+        'PORT': '5432',
     }
 }
 
@@ -152,7 +172,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = "users.CustomUser"
 
 LOGIN_URL = 'login.html'
-LOGIN_REDIRECT_URL = 'index.html'
+LOGIN_REDIRECT_URL = 'account/index'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -163,3 +183,42 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'minedjangotest@gmail.com'
 EMAIL_HOST_PASSWORD = 'arearjmbkfyreyef'
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend'
+]
+
+
+SITE_ID = 1
+
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_USERNAME_REQUIRED = False
+SOCIALACCOUNT_QUERY_EMAIL = True
+SOCIALACCOUNT_AUTO_SIGNUP = True
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'APP': {
+            'client_id': '662512681943-3kgjblimk711hrp1t4m9tpi1cpjenl7j.apps.googleusercontent.com',
+            'secret': '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',
+            'key': ''
+        }
+    }
+}
+
+SOCIALACCOUNT_PIPELINE = [
+    'social_book.pipeline.update_user_email',
+]
+
+AWS_ACCESS_KEY_ID = 'AKIA5NDGEUIDTESOTJHW'
+AWS_SECRET_ACCESS_KEY = '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'
+AWS_STORAGE_BUCKET_NAME = 'firstbucketdjango'
+AWS_S3_REGION_NAME = 'ap-south-1'
+AWS_S3_FILE_OVERWRITE = True
+AWS_DEFAULT_ACL = None
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+# STATICFILES_STORAGE = 'storages.backends.s3boto3.S3StaticStorage'

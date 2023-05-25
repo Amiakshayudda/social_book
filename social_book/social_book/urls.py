@@ -20,6 +20,7 @@ from . import views
 from django.conf import settings
 from django.conf.urls.static import static
 from djoser import views as djoser_views
+from .views import google_login_callback
 
 
 urlpatterns = [
@@ -31,8 +32,12 @@ urlpatterns = [
     path('account/', include('account.urls')),
     path('dbtask/', include('dbtask.urls')),
     path('exceltask/', include('exceltask.urls')),
+    path('excelpd/', include('excelpd.urls')),
+    path('pdtasks/', include('pdtasks.urls')),
     path('api/auth/', include('djoser.urls')),
-    path('api/auth/', include('djoser.urls.jwt'))
+    path('api/auth/', include('djoser.urls.jwt')),
+    path('accounts/', include('allauth.urls')),
+    path('accounts/google/login/callback/', google_login_callback, name='google_login_callback')
 ]
 
 urlpatterns = urlpatterns + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

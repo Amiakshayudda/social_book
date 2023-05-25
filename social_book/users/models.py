@@ -40,3 +40,7 @@ class UploadBooks(models.Model):
     year_of_publishing = models.IntegerField(null=False)
     cover_image = models.ImageField(null=False, upload_to='book_cover/')
     book_path = models.FileField(null=False, upload_to='book/')
+
+class UploadImage(models.Model):
+    CustomUser = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    profile_picture = models.ImageField(upload_to='profile_picture', null=True)

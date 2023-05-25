@@ -4,7 +4,7 @@ import pandas as pd
 from .models import Book
 from django.db.models import Count
 from django.utils import timezone
-from . serializers import BookSerializer
+from . serializers import BookSerializer, NewBookSerializer
 # from django.http import HttpResponse
 from django.core.files.storage import default_storage
 # from rest_framework.decorators import api_view
@@ -153,8 +153,9 @@ class SimpleReadExcelView(APIView):
         params = {'value1': author}
 
         df = pd.read_sql_query(query, engine, params=params)
+        print(df)
 
         data = df.to_json(orient='records')
-        print(data)
-        return Response(df)
+        # print(data)
+        return Response(data)
         # return JsonResponse(data, safe=False)
